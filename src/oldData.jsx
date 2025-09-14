@@ -108,11 +108,11 @@ export default function App() {
   }, []);
 
   return (
-    <div className="flex items-center justify-center min-h-screen w-screen p-4 overflow-hidden bg-[#222222]">
+    <div className="app-container">
       {/* --- Audio Elements --- */}
       <audio ref={bgAudioRef} src="/music/music.mp3" loop />
 
-      <div className="w-[90vw] h-[90vh]">
+      <div className="flipbook-container">
         <HTMLFlipBook
           width={550}
           height={450}
