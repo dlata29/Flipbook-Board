@@ -1,0 +1,22 @@
+.dvNavBar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: #252525; /* Darker Charcoal */
+  color: #f5f0e6;
+  padding: 0.8rem 1.5rem;
+  font-weight: 500;
+  font-size: 1.2rem;
+  letter-spacing: 0.5px;
+  border-bottom: 1px solid #3c3c3c; /* Soft Gray Divider */
+}
+
+.dvNavBarLeftHeading {
+  font-size: 1.1rem;
+}
+
+.navbar-right {
+  font-size: 1.3rem;
+  color: #a94d3c; /* Muted Terracotta Highlight */
+  font-weight: 600;
+}
