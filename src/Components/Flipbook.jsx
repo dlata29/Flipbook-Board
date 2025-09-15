@@ -1,6 +1,6 @@
-import React, { useRef, useState, useEffect, useCallback } from "react";
+import React, { useRef, useState, useEffect, useCallback, use } from "react";
 import HTMLFlipBook from "react-pageflip";
-import "../CSS/test.css";
+import "../CSS/Flipbook.css";
 
 const TOTAL_PAGES = 16;
 
@@ -12,22 +12,33 @@ const PageCover = ({ children }) => (
   </div>
 );
 
-const Page = React.forwardRef(({ number, children }, ref) => (
-  <div className="page" ref={ref}>
-    <div className="page-content">
-      <div className="page-image">{children}</div>
-      <div className="page-footer">{number}</div>
+const Page = React.forwardRef(({ number, children }, ref) => {
+  const isRight = number % 2 !== 0; // right pages only
+
+  return (
+    <div className={`page ${isRight ? "right-page" : ""}`} ref={ref}>
+      <div className="page-content" style={{ position: "relative" }}>
+        <div className="page-image" style={{ position: "relative" }}>
+          {children}
+          {isRight && <div className="page-crease" />} {/* crease overlay */}
+        </div>
+      </div>
     </div>
-  </div>
-));
+  );
+});
 
 export default function Flipbook() {
   const flipBook = useRef(null);
   const bgAudioRef = useRef(null);
+  const [isBookOpen, setIsBookOpen] = useState(false);
 
   const [isPlaying, setIsPlaying] = useState(false);
   const [isFullscreen, setIsFullscreen] = useState(false);
 
+  // --- Toggle page open or not ---
+  const onPageOpen = (e) => {
+    setIsBookOpen(e.data > 0); // if we are past the cover, consider book open
+  };
   // --- Toggle Background Music ---
   const toggleMusic = () => {
     if (!bgAudioRef.current) return;
@@ -98,7 +109,7 @@ export default function Flipbook() {
           showCover={true}
           mobileScrollSupport={true}
           onFlip={onPage}
-          className="album-book"
+          className={`album-book ${isBookOpen ? "flipbook-open" : ""}`}
           ref={flipBook}>
           {Array.from({ length: TOTAL_PAGES }, (_, index) => (
             <Page key={index} number={index + 1}>
