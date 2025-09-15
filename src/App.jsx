@@ -108,11 +108,12 @@ export default function App() {
   }, []);
 
   return (
-    <div className="flex items-center justify-center min-h-screen w-screen p-4 overflow-hidden bg-[#222222]">
+    <div className="flex items-center justify-center min-h-screen w-screen p-4 bg-[#222222] relative">
+      {/* --- Audio Elements --- */}
       {/* --- Audio Elements --- */}
       <audio ref={bgAudioRef} src="/music/music.mp3" loop />
 
-      <div className="w-[90vw] h-[90vh]">
+      <div className="w-[90vw] h-[90vh] flex justify-center items-center">
         <HTMLFlipBook
           width={550}
           height={450}
@@ -136,7 +137,7 @@ export default function App() {
       </div>
 
       {/* --- Floating Toolbar --- */}
-      <div className="toolbar">
+      {/* <div className="toolbar">
         <button onClick={toggleMusic} title="Music">
           {isPlaying ? "🔊" : "🔈"}
         </button>
@@ -144,6 +145,26 @@ export default function App() {
           📤
         </button>
         <button onClick={handleFullscreen} title="Fullscreen">
+          {isFullscreen ? "↙️" : "⛶"}
+        </button>
+      </div> */}
+      <div className="absolute right-5 top-1/2 -translate-y-1/2 flex flex-col gap-3 bg-black/40 p-2 rounded-full backdrop-blur">
+        <button
+          onClick={toggleMusic}
+          title="Music"
+          className="bg-white/10 border border-white/20 text-white w-11 h-11 rounded-full text-xl flex items-center justify-center hover:bg-white/20 hover:scale-110 transition">
+          {isPlaying ? "🔊" : "🔈"}
+        </button>
+        <button
+          onClick={copyShareLink}
+          title="Share"
+          className="bg-white/10 border border-white/20 text-white w-11 h-11 rounded-full text-xl flex items-center justify-center hover:bg-white/20 hover:scale-110 transition">
+          📤
+        </button>
+        <button
+          onClick={handleFullscreen}
+          title="Fullscreen"
+          className="bg-white/10 border border-white/20 text-white w-11 h-11 rounded-full text-xl flex items-center justify-center hover:bg-white/20 hover:scale-110 transition">
           {isFullscreen ? "↙️" : "⛶"}
         </button>
       </div>
