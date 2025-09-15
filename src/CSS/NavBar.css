@@ -1,22 +1,41 @@
+/* Import a modern, sleek font */
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap");
+
+/* Main navigation bar container */
 .dvNavBar {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  background: #252525; /* Darker Charcoal */
-  color: #f5f0e6;
-  padding: 0.8rem 1.5rem;
+  background: #1a202c; /* Deep Navy */
+  color: #e2e8f0; /* Soft Gray */
+  padding: 0.6rem 0.8rem; /* Slim padding for minimal height */
+  font-family: "Inter", sans-serif;
   font-weight: 500;
-  font-size: 1.2rem;
+  font-size: 0.9rem; /* Smaller font */
   letter-spacing: 0.5px;
-  border-bottom: 1px solid #3c3c3c; /* Soft Gray Divider */
+  border-bottom: 1px solid #2d3748; /* subtle divider */
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.15); /* soft shadow */
 }
 
+/* Left-aligned heading */
 .dvNavBarLeftHeading {
-  font-size: 1.1rem;
+  font-size: 0.9rem;
+  font-weight: 500;
+  margin: 0;
 }
 
+/* Right-aligned text with accent color */
 .navbar-right {
-  font-size: 1.3rem;
-  color: #a94d3c; /* Muted Terracotta Highlight */
+  font-size: 0.95rem;
+  color: #f6e093; /* Muted Gold Accent */
   font-weight: 600;
+  transition: all 0.2s ease-in-out;
+  margin: 0;
+}
+
+/* Hover effect for right title */
+.navbar-right:hover {
+  color: #d5ae12; /* Slightly deeper terracotta on hover */
+  cursor: pointer;
+  transform: translateY(-1px); /* subtle lift effect */
 }

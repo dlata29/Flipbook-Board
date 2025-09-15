@@ -1,6 +1,6 @@
 import React, { useRef, useState, useEffect, useCallback } from "react";
 import HTMLFlipBook from "react-pageflip";
-import "../CSS/Flipbook.css";
+import "../CSS/test.css";
 
 const TOTAL_PAGES = 16;
 

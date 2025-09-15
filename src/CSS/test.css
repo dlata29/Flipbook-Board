@@ -1,33 +1,49 @@
-/* ---------------------- Flipbook Wrapper ---------------------- */
+/* Slim navbar at top */
+.dvNavBar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 50px; /* fixed slim height */
+  padding: 0 1rem;
+  background: #1a202c;
+  color: #e2e8f0;
+  font-family: "Inter", sans-serif;
+  font-weight: 500;
+  font-size: 0.95rem;
+  border-bottom: 1px solid #2d3748;
+  box-shadow: 0 1px 6px rgba(0, 0, 0, 0.2);
+  box-sizing: border-box;
+}
+
+/* Wrapper for flipbook below navbar */
 .flipbook-wrapper {
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  min-height: 100vh;
+  height: calc(100vh - 50px); /* subtract navbar height */
   padding: 20px;
-  /* background-color: #1e1e1e; Dark elegant background */
   box-sizing: border-box;
 }
 
-/* ---------------------- Flipbook Centering ---------------------- */
+/* Centering container for flipbook */
 .flipbook-center {
   display: flex;
-  justify-content: center;
   align-items: center;
+  justify-content: center;
   flex: 1;
   min-width: 1150px;
   flex-shrink: 0;
 }
 
-/* ---------------------- Main Book Styling ---------------------- */
+/* Main book styling */
 .album-book {
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
   border-radius: 8px;
   overflow: hidden;
 }
 
-/* ---------------------- Individual Page Styling ---------------------- */
+/* Pages */
 .page {
   background-color: #f7f7f7;
   border: 1px solid #e0e0e0;
@@ -36,7 +52,6 @@
   box-sizing: border-box;
 }
 
-/* ---------------------- Page Content Layout ---------------------- */
 .page-content {
   display: flex;
   flex-direction: column;
@@ -45,9 +60,8 @@
   align-items: center;
 }
 
-/* ---------------------- Cover Page Styling ---------------------- */
 .page-cover {
-  background-color: #333; /* Deep charcoal cover */
+  background-color: #333;
   color: #fff;
   text-align: center;
   display: flex;
@@ -56,14 +70,12 @@
   flex-direction: column;
 }
 
-/* ---------------------- Image Styling ---------------------- */
 .page-image img {
   max-width: 100%;
   height: auto;
   display: block;
 }
 
-/* ---------------------- Page Footer ---------------------- */
 .page-footer {
   text-align: center;
   color: #888;
@@ -71,7 +83,7 @@
   padding-top: 10px;
 }
 
-/* ---------------------- Toolbar Styling ---------------------- */
+/* Toolbar */
 .flipbook-toolbar {
   display: flex;
   justify-content: center;
@@ -80,24 +92,16 @@
 }
 
 .flipbook-toolbar button {
-  background-color: #4a5568; /* Muted navy/gray */
+  background-color: #4a5568;
   color: #fff;
   border: none;
   border-radius: 8px;
   padding: 10px 15px;
   font-size: 16px;
   cursor: pointer;
-  transition: background-color 0.3s, transform 0.2s;
+  transition: background-color 0.3s;
 }
 
 .flipbook-toolbar button:hover {
-  background-color: #2d3748; /* Slightly darker highlight */
-  transform: scale(1.05);
-}
-
-/* ---------------------- Responsive Notes ---------------------- */
-@media (max-width: 1280px) {
-  .flipbook-center {
-    min-width: 900px; /* scales down book on smaller screens */
-  }
+  background-color: #2d3748;
 }
