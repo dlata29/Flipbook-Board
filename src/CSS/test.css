@@ -20,25 +20,25 @@
 }
 
 /* ---------------------- Main Book Styling ---------------------- */
-.album-book {
-  border-radius: 8px;
-  overflow: visible; /* allow crease shadows outside */
-  perspective: 2000px; /* subtle 3D effect */
+.album-book .page {
+  margin: 0; /* remove default spacing */
+  padding: 0; /* no internal padding affecting width */
+  width: 50%; /* each page takes half the book width */
+  transform-origin: left center; /* makes rotation pivot from inner edge */
+  backface-visibility: hidden; /* prevents flicker on rotateY */
 }
 
-/* ---------------------- Individual Page Styling ---------------------- */
-.page {
-  background-color: transparent; /* remove box bg to let pages stick */
-  border: none;
-  padding: 0;
-  box-shadow: none;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  position: relative;
+.page.right-page {
+  transform: perspective(800px) rotateY(-10deg); /* slight rotation */
+  z-index: 5;
+  transform-origin: left center;
 }
-/* Right page stacked edge effect */
-/* Right page stacked page lines outside the page */
+
+.page.left-page {
+  transform: perspective(800px) rotateY(0deg);
+  transform-origin: right center;
+}
+
 .page.right-page .page-image::after {
   content: "";
   position: absolute;

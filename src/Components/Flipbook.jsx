@@ -31,14 +31,20 @@ export default function Flipbook() {
   const flipBook = useRef(null);
   const bgAudioRef = useRef(null);
   const [isBookOpen, setIsBookOpen] = useState(false);
-
   const [isPlaying, setIsPlaying] = useState(false);
   const [isFullscreen, setIsFullscreen] = useState(false);
 
-  // --- Toggle page open or not ---
-  const onPageOpen = (e) => {
-    setIsBookOpen(e.data > 0); // if we are past the cover, consider book open
-  };
+  // --- Autoplay on load (muted first) ---
+  useEffect(() => {
+    if (bgAudioRef.current) {
+      bgAudioRef.current.muted = true;
+      bgAudioRef.current.loop = true;
+      bgAudioRef.current.play().catch(() => {
+        console.log("Muted autoplay blocked (expected on some browsers)");
+      });
+    }
+  }, []);
+
   // --- Toggle Background Music ---
   const toggleMusic = () => {
     if (!bgAudioRef.current) return;
@@ -48,16 +54,13 @@ export default function Flipbook() {
     } else {
       bgAudioRef.current
         .play()
-        .then(() => setIsPlaying(true))
+        .then(() => {
+          bgAudioRef.current.muted = false;
+          setIsPlaying(true);
+        })
         .catch(() => alert("Your browser blocked autoplay."));
     }
   };
-
-  // --- Page Flip Sound ---
-  const onPage = useCallback(() => {
-    const turnSound = new Audio("/music/turn.mp3");
-    turnSound.play().catch(() => {});
-  }, []);
 
   // --- Copy Share Link ---
   const copyShareLink = async () => {
@@ -80,6 +83,23 @@ export default function Flipbook() {
       setIsFullscreen(false);
     }
   };
+
+  // --- Unmute + Play on first page turn ---
+  const onPageOpen = (e) => {
+    setIsBookOpen(e.data > 0);
+    if (bgAudioRef.current && !isPlaying) {
+      bgAudioRef.current.muted = false;
+      bgAudioRef.current
+        .play()
+        .then(() => setIsPlaying(true))
+        .catch(() => console.log("Autoplay still blocked, waiting for click."));
+    }
+  };
+
+  const onPage = useCallback(() => {
+    const turnSound = new Audio("/music/turn.mp3");
+    turnSound.play().catch(() => {});
+  }, []);
 
   // --- Keyboard Navigation ---
   useEffect(() => {
@@ -109,6 +129,8 @@ export default function Flipbook() {
           showCover={true}
           mobileScrollSupport={true}
           onFlip={onPage}
+          onChangeOrientation={onPageOpen} // track book opening
+          onChangeState={onPageOpen}
           className={`album-book ${isBookOpen ? "flipbook-open" : ""}`}
           ref={flipBook}>
           {Array.from({ length: TOTAL_PAGES }, (_, index) => (

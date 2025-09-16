@@ -35,22 +35,44 @@ export default function Flipbook() {
   const [isPlaying, setIsPlaying] = useState(false);
   const [isFullscreen, setIsFullscreen] = useState(false);
 
+  // --- Autoplay music on page load ---
+  useEffect(() => {
+    if (!bgAudioRef.current) return;
+    bgAudioRef.current.muted = true; // muted autoplay is allowed
+    bgAudioRef.current.play().catch(() => console.log("Autoplay blocked"));
+  }, []);
+
   // --- Toggle page open or not ---
   const onPageOpen = (e) => {
-    setIsBookOpen(e.data > 0); // if we are past the cover, consider book open
-  };
-  // --- Toggle Background Music ---
-  const toggleMusic = () => {
-    if (!bgAudioRef.current) return;
-    if (isPlaying) {
-      bgAudioRef.current.pause();
-      setIsPlaying(false);
-    } else {
+    setIsBookOpen(e.data > 0); // book is open if past cover
+
+    // Try to play music on first user interaction (page turn)
+    if (bgAudioRef.current && !isPlaying) {
       bgAudioRef.current
         .play()
         .then(() => setIsPlaying(true))
-        .catch(() => alert("Your browser blocked autoplay."));
+        .catch(() => console.log("Autoplay blocked, try again on next gesture."));
     }
+  };
+
+  // --- Toggle Background Music ---
+  // const toggleMusic = () => {
+  //   if (!bgAudioRef.current) return;
+  //   if (isPlaying) {
+  //     bgAudioRef.current.pause();
+  //     setIsPlaying(false);
+  //   } else {
+  //     bgAudioRef.current
+  //       .play()
+  //       .then(() => setIsPlaying(true))
+  //       .catch(() => alert("Your browser blocked autoplay."));
+  //   }
+  // };
+
+  const toggleMusic = () => {
+    if (!bgAudioRef.current) return;
+    bgAudioRef.current.muted = false; // unmute
+    bgAudioRef.current.play().catch(() => alert("Browser blocked autoplay"));
   };
 
   // --- Page Flip Sound ---

@@ -1,6 +1,6 @@
 /* Make the entire app full screen, no scrollbars */
 .app-wrapper {
-  background: #e9e9e9; /* Dark, modern background */
+  background: #ffe5e157; /* Dark, modern background */
   min-height: 100vh;
   display: flex;
   flex-direction: column;
